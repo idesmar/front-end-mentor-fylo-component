@@ -3,6 +3,7 @@
 $curve: 0.625rem; // 10px;
 $stack: 50rem; // 800px;
 
+
 body {
   background-color: $Very-Dark-Blue;
   color: $Pale-Blue;
@@ -239,7 +240,7 @@ body {
 }
 
 .img-bg {
-  position: absolute;
+  position: relative;
   margin-top: -6.875rem; // -110px;
   width: 100%;
   height: 26.25rem; // 420px;
