@@ -1,0 +1,270 @@
+@use 'colors' as *;
+@use 'media-queries' as *;
+$curve: 0.625rem; // 10px;
+$stack: 50rem; // 800px;
+
+body {
+  background-color: $Very-Dark-Blue;
+  color: $Pale-Blue;
+  // font-size: 114.2857%; // ? 16/14 px testing to reverse body copy of 14px
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.screen-reader {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.container {
+  background-color: $Dark-Blue;
+  border-radius: $curve;
+}
+
+.main-cont {
+  display: flex;
+  justify-content: center;
+	padding: 0 3.125rem; // 0 50px;
+  padding-top: 18.125rem ; // 290px;
+
+  @media (max-width: $stack) {
+		padding-left: unset;
+		padding-right: unset;
+    flex-direction: column;
+    align-items: center;
+
+    .whale,
+    .details-cont {
+      flex-basis: unset;
+      margin: unset;
+      width: 80%;
+    }
+
+    .whale {
+      margin-bottom: 1rem; // 16px;
+    }
+  }
+
+  @media (max-width: $mobile) {
+    padding-top: 8rem; // 128px;
+  }
+}
+
+.whale {
+  flex: 0 1 21.875rem; // 350px;
+  min-width: $equal;
+  background-color: $Dark-Blue;
+  border-radius: $curve; //
+  border-top-right-radius: 6.25rem; // 100px
+  padding: 2.5rem 0 2.5rem 2.5625rem; // 40px 41px;
+  margin-right: 1.875rem; // 30px;
+
+  .fylo-logo {
+    margin-bottom: 1.8125rem; // 29px;
+  }
+
+  .icons-cont {
+    display: flex;
+  }
+
+  .icon-click {
+    background-color: $Very-Dark-Blue;
+    $diameter: 3rem;
+    height: $diameter;
+    width: $diameter;
+    margin-right: 1em;
+    border-radius: $curve;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+		
+		svg {
+			fill: $svg-fill;
+			transition: scale 300ms ease-in-out;
+
+			&:hover {
+				fill: $Grayish-Blue;
+				transform: scale(1.1);
+			}
+		}
+  }
+}
+
+.details-cont {
+  position: relative;
+  font-size: 0.875rem; // 14px;
+  min-width: $equal;
+  flex: 0 1 33.75rem;
+  margin-top: 2.875rem; // 46px;
+  padding: 2.5rem; // 40px;
+
+  @media (max-width: $stack) {
+    padding: 2rem 2.125rem; // 32px 34px;
+
+    .used-info {
+      text-align: center;
+    }
+
+    .scale-cont {
+      padding-bottom: 1.375; // 22px;
+    }
+  }
+
+  .used-info {
+    margin-bottom: 0.875rem; // 14px;
+
+    &--bold {
+      font-weight: 700;
+    }
+  }
+
+  .meter {
+    $diam: 0.5625rem; // 9px;
+    $space: 0.125rem; // 2px;
+    padding: calc(#{$space * 2});
+    margin-bottom: 0.5rem; // 8px;
+    width: 100%;
+    height: calc(#{$diam} + #{$space * 6});
+    background-color: hsla(229, 57%, 11%, 0.5);
+    border-radius: 500vw;
+		cursor: pointer;
+
+		&:hover ~ .bubble {
+			opacity: 1;
+			visibility: visible;
+		}
+		
+
+    &--fill {
+      position: relative;
+      width: 75%; // ? change according to used storage
+      height: 100%;
+      background-image: linear-gradient(90deg, $gradient-1, $gradient-2);
+      border-radius: inherit;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    &--ball {
+      width: $diam;
+      height: $diam;
+      // margin: calc(#{$space * 2});
+      margin-right: $space;
+      border-radius: inherit;
+      background-color: $Pale-Blue;
+    }
+  }
+
+  .scale-cont {
+    font-size: 0.75rem; // 12px;
+    font-weight: 700;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .bubble {
+		opacity: 0;
+		visibility: hidden;
+    position: absolute;
+    top: -2.875rem; // -46px;
+    right: 2.5rem; // 40px;
+    background-color: white;
+    padding: 0.75rem 1.5rem; // 12px 24px;
+    color: initial;
+    font-size: 0.875rem; // 14px;
+    text-transform: uppercase;
+    border-radius: $curve;
+    border-bottom-right-radius: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+		transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
+
+    @media (max-width: $stack) {
+      width: 11.25rem; // 180px;
+      padding: 0.75rem 0; // 12px 0;
+      border-radius: $curve;
+      top: unset;
+      right: unset;
+      bottom: -2.1875rem; // -35px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .remaining-storage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &--bold {
+        font-weight: 700;
+        font-size: 2.5rem; // 40px;
+        margin-right: 0.625rem; // 10px;
+      }
+    }
+
+    &--tip {
+      $side: 1.375rem; // 22px;
+      width: 0;
+      height: 0;
+      border-left: $side solid transparent;
+      border-top: $side solid white;
+      position: absolute;
+      top: 100%;
+      right: 0;
+
+      @media (max-width: $stack) {
+        display: none;
+      }
+    }
+  }
+}
+
+.img-bg {
+  position: absolute;
+  margin-top: -3.125rem; // -50px;
+  width: 100%;
+  height: 26.25rem; // 420px;
+
+  background-image: url("/images/bg-desktop.png");
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+
+  @media (max-width: $mobile) {
+    background-image: url("/images/bg-mobile.png");
+    margin: unset;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+  }
+
+  .attribution {
+    position: absolute;
+    bottom: 0;
+    right: 0%;
+    left: 0;
+    border-top: 3px solid hsl(51, 100%, 33%);
+  }
+}
